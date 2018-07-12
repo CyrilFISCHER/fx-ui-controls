@@ -1,17 +1,19 @@
 package org.modernclients.ch3.samples;
 
 import java.util.function.Consumer;
+
+import org.modernclients.ch3.Sample;
+
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import org.modernclients.ch3.Sample;
 
 /**
  * @author Cyril FISCHER <contact@CyrilFischer.fr>
@@ -38,14 +40,20 @@ public class ToolTipDemo implements Sample {
     }
 
     private void layoutDemo(Rectangle rectangle, Button hoverButton, Circle circle, Pane container) {
+	        
         Text instructionText = new Text("Hover over nodes");
         instructionText.setStyle("-fx-font-size: 18;");
-        HBox hBox = new HBox(rectangle, hoverButton, circle);
-        hBox.setAlignment(Pos.CENTER);
-        hBox.setStyle("-fx-spacing : 3em");
-        VBox vBox = new VBox(instructionText, hBox);
-        vBox.setAlignment(Pos.CENTER);
-        vBox.setStyle("-fx-spacing : 3em");
-        container.getChildren().add(vBox);
+        GridPane.setHalignment(instructionText, HPos.CENTER);
+
+        final GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setStyle("-fx-hgap: 3em; -fx-vgap: 3em");
+        gridPane.add(instructionText, 0, 0, 3, 1);
+        gridPane.add(rectangle, 0, 1);
+        gridPane.add(hoverButton, 1, 1);
+        gridPane.add(circle, 2, 1);
+        container.getChildren().add(gridPane);
+        
+        
     }
 }
